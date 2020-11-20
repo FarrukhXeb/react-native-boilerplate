@@ -1,10 +1,12 @@
 interface ScreenOptions {
   title: string;
 }
-export type RootStackParamList = {
+export type RootParamList = {
   Home: undefined;
-  About: {data: string; id: number};
+  Settings: undefined;
   Profile: undefined;
+  Login: undefined;
+  Signup: undefined;
 };
 
 export interface Screen {

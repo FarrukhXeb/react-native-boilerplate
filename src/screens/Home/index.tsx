@@ -1,22 +1,16 @@
 import React from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Text, View, StyleSheet, Button} from 'react-native';
-import {RootStackParamList} from '../../types';
+import {Text, View, StyleSheet} from 'react-native';
+import {RootParamList} from '../../types';
 
 interface HomeProps {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>;
+  navigation: StackNavigationProp<RootParamList, 'Home'>;
 }
 
-const Home: React.FC<HomeProps> = ({navigation}) => {
+const Home: React.FC<HomeProps> = () => {
   return (
     <View style={styles.root}>
       <Text>Home Screen</Text>
-      <Button
-        title={'Go to About'}
-        onPress={() =>
-          navigation.navigate('About', {data: 'Testing...', id: 1})
-        }
-      />
     </View>
   );
 };
