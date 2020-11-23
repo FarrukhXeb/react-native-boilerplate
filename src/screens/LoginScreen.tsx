@@ -1,10 +1,14 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {Button, Text, View} from 'react-native';
-import {RootParamList} from '../../types';
+import {RootParamList} from '../types';
 
-type LoginProps = {
+export type LoginProps = {
   navigation: StackNavigationProp<RootParamList, 'Login'>;
+};
+export type LoginInputs = {
+  email: string;
+  password: string;
 };
 
 const Login: React.FC<LoginProps> = ({navigation}) => {

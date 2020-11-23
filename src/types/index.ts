@@ -1,3 +1,4 @@
+import {AxiosResponse} from 'axios';
 interface ScreenOptions {
   title: string;
 }
@@ -12,4 +13,18 @@ export type RootParamList = {
 export interface Screen {
   name: string;
   options?: ScreenOptions;
+}
+
+export type User = {
+  _id: string;
+  username: string;
+  email: string;
+  password?: string;
+};
+
+export interface IResponse extends AxiosResponse {
+  data: {
+    success: boolean;
+    messsage?: string;
+  };
 }

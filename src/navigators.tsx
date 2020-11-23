@@ -2,11 +2,11 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RootParamList} from './types';
-import Home from './screens/Home';
-import Settings from './screens/Settings';
-import Profile from './screens/Profile';
-import Login from './screens/Login';
-import Signup from './screens/Signup';
+import Home from './screens/HomeScreen';
+import Settings from './screens/SettingsScreen';
+import Profile from './screens/ProfileScreen';
+import Login from './containers/LoginContainer';
+import Signup from './screens/SignupScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator<RootParamList>();

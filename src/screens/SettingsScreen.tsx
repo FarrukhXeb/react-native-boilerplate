@@ -2,7 +2,7 @@ import React from 'react';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet, Text, View} from 'react-native';
-import {RootParamList} from '../../types';
+import {RootParamList} from '../types';
 
 type SettingsProps = {
   navigation: StackNavigationProp<RootParamList, 'Settings'>;
