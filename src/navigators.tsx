@@ -7,6 +7,7 @@ import Settings from './screens/SettingsScreen';
 import Profile from './screens/ProfileScreen';
 import Login from './containers/LoginContainer';
 import Signup from './screens/SignupScreen';
+import ForgotPassword from './screens/ForgotPasswordScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator<RootParamList>();
@@ -16,6 +17,7 @@ export const NonAuthNavigator = () => (
   <Stack.Navigator headerMode={'none'}>
     <Stack.Screen name={'Login'} component={Login} />
     <Stack.Screen name={'Signup'} component={Signup} />
+    <Stack.Screen name={'ForgotPassword'} component={ForgotPassword} />
   </Stack.Navigator>
 );
 

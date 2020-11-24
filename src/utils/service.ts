@@ -1,22 +1,21 @@
 import axios from 'axios';
-// import {storage} from '../utils/storage';
+import {storage} from '../utils/storage';
 const http = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'http://10.0.2.2:7000/api/v1',
 });
 
 http.defaults.headers.post['Content-Type'] = 'application/json';
 
-// http.interceptors.request.use(
-//   (config) => {
-//     const token = storage.get('token');
-
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => Promise.reject(error),
-// );
+http.interceptors.request.use(
+  (config) => {
+    const token = storage.get('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 // http.interceptors.response.use(
 //   async (response) => {

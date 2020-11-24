@@ -1,4 +1,5 @@
 import {AxiosResponse} from 'axios';
+
 interface ScreenOptions {
   title: string;
 }
@@ -8,6 +9,7 @@ export type RootParamList = {
   Profile: undefined;
   Login: undefined;
   Signup: undefined;
+  ForgotPassword: undefined;
 };
 
 export interface Screen {

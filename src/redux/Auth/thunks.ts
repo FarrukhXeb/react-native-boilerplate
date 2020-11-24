@@ -21,7 +21,8 @@ export const performLogIn = (
       dispatch(logInError(res.data.message));
     }
   } catch (error) {
-    dispatch(logInError(error.message));
+    dispatch(logInError(error?.response?.data?.message || error.message));
+    setTimeout(() => dispatch(logInError('')), 5000);
   }
 };
 
