@@ -6,7 +6,7 @@ import Home from './screens/HomeScreen';
 import Settings from './screens/SettingsScreen';
 import Profile from './screens/ProfileScreen';
 import Login from './containers/LoginContainer';
-import Signup from './screens/SignupScreen';
+import Signup from './containers/SignupContainer';
 import ForgotPassword from './screens/ForgotPasswordScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 

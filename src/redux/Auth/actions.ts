@@ -29,6 +29,11 @@ export const signupError = (data: string): AuthActionTypes => ({
   payload: data,
 });
 
+export const signupSuccess = (data: string): AuthActionTypes => ({
+  type: AUTH_ACTION_TYPES.REGISTERING_SUCCESS,
+  payload: data,
+});
+
 export const checkIsAuthenticated = (): AuthActionTypes => ({
   type: AUTH_ACTION_TYPES.CHECKING_AUTH,
 });

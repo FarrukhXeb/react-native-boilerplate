@@ -7,6 +7,7 @@ const initialState: AuthState = {
   registering: false,
   loginError: '',
   registeringError: '',
+  registerSuccess: '',
   user: null,
 };
 
@@ -48,6 +49,13 @@ export function authReducer(
       return {
         ...state,
         registeringError: action.payload,
+        registering: false,
+      };
+    case AUTH_ACTION_TYPES.REGISTERING_SUCCESS:
+      return {
+        ...state,
+        registerSuccess: action.payload,
+        registering: false,
       };
     case AUTH_ACTION_TYPES.CHECKING_AUTH:
       return {

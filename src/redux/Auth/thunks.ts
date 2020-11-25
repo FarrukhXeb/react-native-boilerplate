@@ -1,7 +1,14 @@
 import {Action} from 'redux';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {RootState} from '../store';
-import {loggingIn, logIn, logInError, signingUp, signupError} from './actions';
+import {
+  loggingIn,
+  logIn,
+  logInError,
+  signingUp,
+  signupError,
+  signupSuccess,
+} from './actions';
 import {LoginInputs} from '../../screens/LoginScreen';
 import service from '../../utils/service';
 import {AuthActionTypes, AuthResponse} from './types';
@@ -36,8 +43,12 @@ export const performRegistration = (
     const res: AuthResponse = await service.post('/auth/register', data);
     if (!res.data.success) {
       dispatch(signupError(res.data.message));
+    } else {
+      dispatch(signupSuccess(res.data.message));
     }
+    setTimeout(() => dispatch(signupError('')), 5000);
   } catch (error) {
-    dispatch(signupError(error.message));
+    dispatch(signupError(error?.response?.data?.message || error.message));
+    setTimeout(() => dispatch(signupError('')), 5000);
   }
 };

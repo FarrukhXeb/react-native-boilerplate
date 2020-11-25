@@ -9,6 +9,7 @@ export enum AUTH_ACTION_TYPES {
   REGISTERING = 'AUTH_ACTION/REGISTERING',
   REGISTER = 'AUTH_ACTION/REGISTER',
   REGISTERING_ERROR = 'AUTH_ACTION/REGISTERING_ERROR',
+  REGISTERING_SUCCESS = 'AUTH_ACTION/REGISTERING_SUCCESS',
   LOG_OUT = 'AUTH_ACTION/LOG_OUT',
 }
 
@@ -17,6 +18,7 @@ export type AuthState = {
   checkingAuth: boolean;
   loggingIn: boolean;
   registering: boolean;
+  registerSuccess: string;
   loginError: string;
   registeringError: string;
   user: User | null;
@@ -61,6 +63,11 @@ interface SignUpErrorAction {
   payload: string;
 }
 
+interface SignUpSuccess {
+  type: typeof AUTH_ACTION_TYPES.REGISTERING_SUCCESS;
+  payload: string;
+}
+
 interface CheckingAuth {
   type: typeof AUTH_ACTION_TYPES.CHECKING_AUTH;
 }
@@ -84,5 +91,6 @@ export type AuthActionTypes =
   | SigningUp
   | LogInErrorAction
   | SignUpErrorAction
+  | SignUpSuccess
   | CheckingAuth
   | LogOutAction;

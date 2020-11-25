@@ -1,8 +1,9 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import AppButton from '../components/AppButton';
 import AppInput from '../components/AppInput';
+import AppLink from '../components/AppLink';
 import ScreenContainer from '../components/ScreenContainer';
 import {RootParamList} from '../types';
 import {
@@ -11,7 +12,11 @@ import {
   validateUsername,
 } from '../utils/validators';
 export type SignupProps = {
-  navigation: StackNavigationProp<RootParamList>;
+  navigation: StackNavigationProp<RootParamList, 'Signup'>;
+  handleRegistration: (data: SignUpInputs) => void;
+  loading: boolean;
+  error: string;
+  success: string;
 };
 
 export interface SignUpInputs {
@@ -28,6 +33,22 @@ const styles = StyleSheet.create({
   additionalActions: {
     marginTop: 20,
   },
+  error: {
+    backgroundColor: 'red',
+    padding: 8,
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    marginTop: 8,
+  },
+  success: {
+    backgroundColor: 'green',
+    padding: 8,
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    marginTop: 8,
+  },
 });
 
 type SignupErrors = {
@@ -35,13 +56,19 @@ type SignupErrors = {
   passwordError: string;
   usernameError: string;
 };
-
-const Signup: React.FC<SignupProps> = () => {
-  const [inputs, setInputs] = useState<SignUpInputs>({
-    email: '',
-    password: '',
-    username: '',
-  });
+const initialState: SignUpInputs = {
+  email: '',
+  password: '',
+  username: '',
+};
+const Signup: React.FC<SignupProps> = ({
+  handleRegistration,
+  loading,
+  error,
+  success,
+  navigation,
+}) => {
+  const [inputs, setInputs] = useState<SignUpInputs>(initialState);
   const [errors, setErrors] = useState<SignupErrors>({
     emailError: '',
     passwordError: '',
@@ -61,6 +88,8 @@ const Signup: React.FC<SignupProps> = () => {
     } else {
       setErrors({emailError: '', passwordError: '', usernameError: ''});
     }
+    handleRegistration(inputs);
+    setInputs(initialState);
   };
 
   return (
@@ -83,9 +112,16 @@ const Signup: React.FC<SignupProps> = () => {
           secureTextEntry
         />
         <AppButton
+          loading={loading}
           title="SIGNUP"
           onPress={onSubmit}
           disabled={!inputs.email || !inputs.password || !inputs.username}
+        />
+        {error.length > 0 && <Text style={styles.error}>{error}</Text>}
+        {success.length > 0 && <Text style={styles.success}>{success}</Text>}
+        <AppLink
+          title={'Go back to login'}
+          onPress={() => navigation.navigate('Login')}
         />
       </View>
     </ScreenContainer>
