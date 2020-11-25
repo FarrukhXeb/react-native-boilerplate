@@ -5,11 +5,19 @@ import {NonAuthNavigator, AuthNavigator} from './navigators';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import {RootState} from './redux/store';
+import {bindActionCreators, Dispatch} from 'redux';
+import {AuthActionTypes} from './redux/Auth/types';
+import {checkIsAuthenticated} from './redux/Auth/actions';
 
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
 function App(props: Props) {
+  const {checkIsAuthenticated} = props;
   // const isLoggedIn: boolean = false;
+  React.useEffect(() => {
+    checkIsAuthenticated();
+  });
   const {isLoggedIn} = props;
   return (
     <NavigationContainer>
@@ -22,4 +30,7 @@ const mapStateToProps = (state: RootState) => ({
   isLoggedIn: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) =>
+  bindActionCreators({checkIsAuthenticated}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

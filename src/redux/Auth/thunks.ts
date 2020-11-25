@@ -2,9 +2,11 @@ import {Action} from 'redux';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {RootState} from '../store';
 import {
+  checkIsAuthenticated,
   loggingIn,
   logIn,
   logInError,
+  logOut,
   signingUp,
   signupError,
   signupSuccess,
@@ -13,6 +15,7 @@ import {LoginInputs} from '../../screens/LoginScreen';
 import service from '../../utils/service';
 import {AuthActionTypes, AuthResponse} from './types';
 import {SignUpInputs} from '../../screens/SignupScreen';
+import {storage} from '../../utils/storage';
 
 export const performLogIn = (
   data: LoginInputs,
@@ -50,5 +53,20 @@ export const performRegistration = (
   } catch (error) {
     dispatch(signupError(error?.response?.data?.message || error.message));
     setTimeout(() => dispatch(signupError('')), 5000);
+  }
+};
+
+export const checkAuth = (): ThunkAction<
+  void,
+  RootState,
+  {},
+  Action<AuthActionTypes>
+> => async (dispatch: ThunkDispatch<{}, {}, AuthActionTypes>) => {
+  dispatch(checkIsAuthenticated());
+  const token: string | null = await storage.get('token');
+  if (token) {
+    console.log(token);
+  } else {
+    dispatch(logOut());
   }
 };

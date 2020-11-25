@@ -63,6 +63,10 @@ export function authReducer(
         checkingAuth: true,
       };
     case AUTH_ACTION_TYPES.LOG_OUT:
+      return {
+        ...state,
+        checkingAuth: false,
+      };
     default:
       return state;
   }
