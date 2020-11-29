@@ -66,6 +66,8 @@ export function authReducer(
       return {
         ...state,
         checkingAuth: false,
+        isAuthenticated: false,
+        user: null,
       };
     default:
       return state;

@@ -7,18 +7,23 @@ import {connect} from 'react-redux';
 import {RootState} from './redux/store';
 import {bindActionCreators, Dispatch} from 'redux';
 import {AuthActionTypes} from './redux/Auth/types';
-import {checkIsAuthenticated} from './redux/Auth/actions';
+import {checkAuth} from './redux/Auth/thunks';
+import FullScreenLoader from './components/FullScreenLoader';
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function App(props: Props) {
-  const {checkIsAuthenticated} = props;
-  // const isLoggedIn: boolean = false;
+  const {isAuthenticating, checkIsAuthenticated} = props;
   React.useEffect(() => {
     checkIsAuthenticated();
-  });
+  }, [checkIsAuthenticated]);
   const {isLoggedIn} = props;
+
+  if (isAuthenticating) {
+    return <FullScreenLoader />;
+  }
+
   return (
     <NavigationContainer>
       {isLoggedIn ? <AuthNavigator /> : <NonAuthNavigator />}
@@ -28,9 +33,10 @@ function App(props: Props) {
 
 const mapStateToProps = (state: RootState) => ({
   isLoggedIn: state.auth.isAuthenticated,
+  isAuthenticating: state.auth.checkingAuth,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) =>
-  bindActionCreators({checkIsAuthenticated}, dispatch);
+  bindActionCreators({checkIsAuthenticated: checkAuth}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

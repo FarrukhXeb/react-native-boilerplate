@@ -1,5 +1,4 @@
-import {AxiosResponse} from 'axios';
-import {User} from '../../types';
+import {IResponse, User} from '../../types';
 
 export enum AUTH_ACTION_TYPES {
   CHECKING_AUTH = 'AUTH_ACTION/CHECKING_AUTH',
@@ -76,14 +75,30 @@ interface LogOutAction {
   type: typeof AUTH_ACTION_TYPES.LOG_OUT;
 }
 
-export interface AuthResponse extends AxiosResponse {
+export interface AuthResponse extends IResponse {
+  data: {
+    user: User;
+    token: {
+      token: string;
+      expiresIn: string;
+    };
+    success: boolean;
+    message: string;
+  };
+}
+
+export interface GetUserResponse extends IResponse {
   data: {
     user: User;
     success: boolean;
     message: string;
   };
 }
-
+export interface JWTDecoded {
+  _id: string;
+  iat: Number;
+  exp: Number;
+}
 export type AuthActionTypes =
   | LogInAction
   | LoggingInAction

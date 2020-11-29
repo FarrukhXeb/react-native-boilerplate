@@ -1,5 +1,6 @@
 import {Action} from 'redux';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import jwtDecode from 'jwt-decode';
 import {RootState} from '../store';
 import {
   checkIsAuthenticated,
@@ -13,9 +14,15 @@ import {
 } from './actions';
 import {LoginInputs} from '../../screens/LoginScreen';
 import service from '../../utils/service';
-import {AuthActionTypes, AuthResponse} from './types';
+import {
+  AuthActionTypes,
+  AuthResponse,
+  GetUserResponse,
+  JWTDecoded,
+} from './types';
 import {SignUpInputs} from '../../screens/SignupScreen';
 import {storage} from '../../utils/storage';
+// import {User} from '../../types';
 
 export const performLogIn = (
   data: LoginInputs,
@@ -26,6 +33,7 @@ export const performLogIn = (
   try {
     const res: AuthResponse = await service.post('/auth/login', data);
     if (res.data.success) {
+      storage.set('token', res.data.token.token);
       dispatch(logIn(res.data.user));
     } else {
       dispatch(logInError(res.data.message));
@@ -65,7 +73,14 @@ export const checkAuth = (): ThunkAction<
   dispatch(checkIsAuthenticated());
   const token: string | null = await storage.get('token');
   if (token) {
-    console.log(token);
+    const decoded: JWTDecoded = jwtDecode(token);
+    const res: GetUserResponse = await service.get(`/user/${decoded._id}`);
+    if (res.data.success) {
+      dispatch(logIn(res.data.user));
+    } else {
+      dispatch(logOut());
+    }
+    // console.log(token);
   } else {
     dispatch(logOut());
   }

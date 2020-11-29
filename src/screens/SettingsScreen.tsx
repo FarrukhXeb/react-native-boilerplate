@@ -3,6 +3,7 @@ import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StyleSheet, Text, View} from 'react-native';
 import {RootParamList} from '../types';
+import AuthContainer from '../components/AuthContainer';
 
 type SettingsProps = {
   navigation: StackNavigationProp<RootParamList, 'Settings'>;
@@ -11,9 +12,11 @@ type SettingsProps = {
 
 const Settings: React.FC<SettingsProps> = () => {
   return (
-    <View style={styles.root}>
-      <Text>Settings Screen</Text>
-    </View>
+    <AuthContainer>
+      <View style={styles.root}>
+        <Text>Settings Screen</Text>
+      </View>
+    </AuthContainer>
   );
 };
 

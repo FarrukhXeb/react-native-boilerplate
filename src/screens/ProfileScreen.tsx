@@ -1,11 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import AuthContainer from '../components/AuthContainer';
 
 const Profile = () => {
   return (
-    <View style={styles.root}>
-      <Text>Profile Screen</Text>
-    </View>
+    <AuthContainer>
+      <View style={styles.root}>
+        <Text>Profile Screen</Text>
+      </View>
+    </AuthContainer>
   );
 };
 const styles = StyleSheet.create({

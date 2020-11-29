@@ -2,6 +2,7 @@ import React from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Text, View, StyleSheet} from 'react-native';
 import {RootParamList} from '../types';
+import AuthContainer from '../components/AuthContainer';
 
 interface HomeProps {
   navigation: StackNavigationProp<RootParamList, 'Home'>;
@@ -9,9 +10,11 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = () => {
   return (
-    <View style={styles.root}>
-      <Text>Home Screen</Text>
-    </View>
+    <AuthContainer>
+      <View style={styles.root}>
+        <Text>Home Screen</Text>
+      </View>
+    </AuthContainer>
   );
 };
 
